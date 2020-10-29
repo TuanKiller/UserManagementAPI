@@ -1,5 +1,5 @@
 ﻿using Application.Data.Entities;
-using Application.Data.Models;
+using ProjectRESTfulAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,6 @@ namespace ProjectRESTfulAPI.Interfaces
     public interface IAccount
     {
         List<Account> GetAll();
-        bool Register(AccountModel account);
+        bool Register(Account account);
     }
 }

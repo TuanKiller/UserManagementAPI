@@ -1,8 +1,8 @@
 ﻿using Application.Data.Context;
 using Application.Data.Entities;
-using Application.Data.Models;
 using ProjectRESTfulAPI.Common;
 using ProjectRESTfulAPI.Interfaces;
+using ProjectRESTfulAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace ProjectRESTfulAPI.Repositories
             return _db.Accounts.ToList();
         }
 
-        public bool Register(AccountModel accountModel)
+        public bool Register(Account accountModel)
         {
             var model = _db.Accounts.FirstOrDefault(x => x.Username == accountModel.Username);
             if (model == null)

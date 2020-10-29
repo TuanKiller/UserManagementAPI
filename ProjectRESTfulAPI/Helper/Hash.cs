@@ -1,6 +1,6 @@
-﻿using Application.Data.Models;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ProjectRESTfulAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -34,7 +34,7 @@ namespace ProjectRESTfulAPI.Common
         {
 
         }
-        public string GenerateJSONWebToken(LoginModel userInfo)
+        public string GenerateJSONWebToken(AuthenticateRequest userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectRESTfulAPI.Interfaces;
+using ProjectRESTfulAPI.Models;
 
 namespace ProjectRESTfulAPI.Controllers
 {
@@ -19,38 +20,23 @@ namespace ProjectRESTfulAPI.Controllers
         {
             _login = login;
         }
-        // GET: api/Login
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _login.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
+        [Authorize]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAll()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Login/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Login
-        [HttpPost]
-        public ActionResult Post(LoginModel loginModel)
-        {
-            var returnResult = _login.CheckLogin(loginModel);
-            return Ok(returnResult);
-        }
-
-        // PUT: api/Login/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var accounts = _login.GetAll();
+            return Ok(accounts);
         }
     }
 }

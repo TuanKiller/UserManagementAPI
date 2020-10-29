@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Data.Entities;
-using Application.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectRESTfulAPI.Interfaces;
@@ -36,9 +35,9 @@ namespace ProjectRESTfulAPI.Controllers
 
         // POST: api/Account
         [HttpPost]
-        public bool Post(AccountModel accountModel)
+        public bool Post(Account account)
         {
-            var check = _account.Register(accountModel);
+            var check = _account.Register(account);
             return check;
         }
 

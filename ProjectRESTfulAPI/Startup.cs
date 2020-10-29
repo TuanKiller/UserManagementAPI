@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using ProjectRESTfulAPI.Helper;
 using ProjectRESTfulAPI.Interfaces;
 using ProjectRESTfulAPI.Repositories;
 
@@ -33,23 +34,12 @@ namespace ProjectRESTfulAPI
         {
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>();
+            // configure DI for application services
             services.AddTransient<IAccount, AccountRepository>();
             services.AddTransient<ILogin, LoginRepository>();
             services.AddTransient<IUser, UserRepository>();
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = Configuration["Jwt:Issuer"],
-            //            ValidAudience = Configuration["Jwt:Issuer"],
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-            //        };
-            //    });
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +59,9 @@ namespace ProjectRESTfulAPI
             app.UseRouting();
 
             app.UseAuthentication();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseAuthorization();
 

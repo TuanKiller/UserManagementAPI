@@ -1,4 +1,5 @@
-﻿using Application.Data.Models;
+﻿using Application.Data.Entities;
+using ProjectRESTfulAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace ProjectRESTfulAPI.Interfaces
 {
     public interface ILogin
     {
-        int CheckLogin(LoginModel loginModel);
+        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        IEnumerable<Account> GetAll();
+        Account GetById(int id);
     }
 }
