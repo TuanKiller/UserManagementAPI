@@ -9,7 +9,9 @@ namespace ProjectRESTfulAPI.Interfaces
 {
     public interface ILogin
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
+        AuthenticateResponse RefreshToken(string token, string ipAddress);
+        bool RevokeToken(string token, string ipAddress);
         IEnumerable<Account> GetAll();
         Account GetById(int id);
     }

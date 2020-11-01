@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectRESTfulAPI.Models
@@ -13,16 +14,19 @@ namespace ProjectRESTfulAPI.Models
         public string Email { get; set; }
         public bool Status { get; set; }
         public string Username { get; set; }
-        public string Token { get; set; }
-        public AuthenticateResponse(Account account, string token)
+        public string JwtToken { get; set; }
+
+        [JsonIgnore] // refresh token is returned in http only cookie
+        public string RefreshToken { get; set; }
+        public AuthenticateResponse(Account account, string jwtToken, string refreshToken)
         {
             Id = account.Id;
             Username = account.Username;
             Email = account.Email;
             Status = account.Status;
             Username = account.Username;
-            Token = token;
-
+            JwtToken = jwtToken;
+            RefreshToken = refreshToken;
         }
     }
 
