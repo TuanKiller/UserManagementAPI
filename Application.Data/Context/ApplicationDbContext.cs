@@ -1,5 +1,6 @@
 ﻿using Application.Data.Configurations;
 using Application.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;

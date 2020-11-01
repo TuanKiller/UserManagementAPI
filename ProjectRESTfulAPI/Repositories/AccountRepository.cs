@@ -30,6 +30,7 @@ namespace ProjectRESTfulAPI.Repositories
                 {
                     Username = accountModel.Username,
                     Password = new Hash().HashPassword(accountModel.Password),
+                    //Password =accountModel.Password,
                     Name = accountModel.Name,
                     Email = accountModel.Email,
                     Status = accountModel.Status
